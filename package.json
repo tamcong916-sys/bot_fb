@@ -1,1 +1,14 @@
-
+{
+  "name": "fb-bot-provip-2026",
+  "version": "2.5.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@dongdev/fca-unofficial": "latest",
+    "axios": "latest",
+    "express": "latest",
+    "fs-extra": "latest"
+  }
+}
