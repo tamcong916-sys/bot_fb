@@ -1,7 +1,9 @@
-{
+
   "BOT_NAME": "Cá Voi Bot VIP",
   "PREFIX": "/",
   "MENU_GIF": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN5Y29kZndpYTYzOHp6Z3A4bXN5Y29kZndpYTYzOHp6Z3A4&ep=v1_gifs_search/giphy.gif",
+  "WELCOME_GIF": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2p0c29pY2g0b3YxbG95bms0YnZ3NXA0bXN5Y29kZndpYTYzOHp6&ep=v1_gifs_search/welcome.gif",
+  "LEAVE_GIF": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnZxeXN0ZXZ4M3Z6cW16M2p0c29pY2g0b3YxbG95bms0YnZ3NXA0&ep=v1_gifs_search/goodbye.gif",
   "DELAY_MESSAGE": 1500,
   
   "ADMIN_INFO": {
