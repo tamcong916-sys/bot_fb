@@ -1,5 +1,5 @@
 {
-  "BOT_NAME": "Cá Voi Bot",
+  "BOT_NAME": "bot",
   "ADMIN_IDS": ["100012345678901", "10009876543210"],
   "MENU_GIF": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN5Y29kZndpYTYzOHp6Z3A4bXN5Y29kZndpYTYzOHp6Z3A4&ep=v1_gifs_search/giphy.gif",
   "PREFIX": "/"
