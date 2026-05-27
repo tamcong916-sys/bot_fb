@@ -1,13 +1,31 @@
-module.exports = [
-    {
-        name: "taixiu",
-        async execute(api, event, args) {
-            const bet = args[0]?.toLowerCase(); if(!bet) return api.sendMessage("⚠️ Nhập tài hoặc xỉu!", event.threadID);
-            const d = () => Math.floor(Math.random() * 6) + 1; const r1 = d(), r2 = d(), r3 = d(), t = r1+r2+r3, kq = t >= 11 ? "tài" : "xỉu";
-            return api.sendMessage(`🎲 Kết quả: 🎲 ${r1} | ${r2} | ${r3} => ${t} điểm [${kq.toUpperCase()}]\n➔ ${bet === kq ? "🎉 Thắng!" : "💸 Thua!"}`, event.threadID);
-        }
-    },
-    { name: "baucua", async execute(api, event) { const items = ["Bầu", "Cua", "Tôm", "Cá", "Gà", "Nai"]; return api.sendMessage(`🎋 Kết quả: [ ${items[Math.floor(Math.random()*6)]} | ${items[Math.floor(Math.random()*6)]} ]`, event.threadID); } },
-    { name: "chanle", async execute(api, event, args) { const cl = args[0], r = Math.floor(Math.random()*10), kq = r % 2 === 0 ? "chẵn" : "lẻ"; return api.sendMessage(`🎲 Số ra: ${r} [${kq.toUpperCase()}]`, event.threadID); } },
-    { name: "daovang", async execute(api, event) { return api.sendMessage(`⛏️ Bạn đào được túi vàng trị giá $${Math.floor(Math.random()*500)}!`, event.threadID); } }
-];
+module.exports.taixiu = function(api, event, args) {
+    const cuoc = args[0]?.toLowerCase();
+    const tienCuoc = parseInt(args[1]);
+
+    if (!cuoc || !["tai", "xiu"].includes(cuoc)) {
+        return api.sendMessage("🎲 Cách chơi: /taixiu [tai/xiu] [số tiền]", event.threadID);
+    }
+
+    // Lắc 3 xúc xắc
+    const d1 = Math.floor(Math.random() * 6) + 1;
+    const d2 = Math.floor(Math.random() * 6) + 1;
+    const d3 = Math.floor(Math.random() * 6) + 1;
+    const tong = d1 + d2 + d3;
+    const ketQua = (tong >= 11 && tong <= 17) ? "tai" : "xiu";
+
+    let iconXucXac = (n) => ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"][n-1];
+
+    let message = `╔════ 🎲 TÀI XỈU 🎲 ════╗\n`;
+    message += `┣ Lắc xúc xắc: ${iconXucXac(d1)}  ${iconXucXac(d2)}  ${iconXucXac(d3)}\n`;
+    message += `┣ Tổng điểm: ${tong} => ${ketQua.toUpperCase()}\n`;
+    message += `╠═════════════════════╣\n`;
+
+    if (cuoc === ketQua) {
+        message += `🎉 Bạn đã THẮNG! Nhận ngay phần thưởng xứng đáng.`;
+    } else {
+        message += `💸 Bạn đã THUA! May mắn lần sau nhé bạn hiền.`;
+    }
+    message += `\n╚═════════════════════╝`;
+
+    return api.sendMessage(message, event.threadID);
+};
