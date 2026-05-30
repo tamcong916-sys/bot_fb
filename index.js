@@ -1,6 +1,7 @@
 require('dotenv').config();
 const login = require("fca-unofficial");
 
+// 1. Giả lập Trình duyệt của người dùng thật (Thay đổi định kỳ)
 const loginOptions = {
     forceLogin: true,
     listenEvents: true,
@@ -10,32 +11,36 @@ const loginOptions = {
 
 function startBot() {
     try {
+        // Gọi appstate bảo mật từ biến môi trường
         const appState = JSON.parse(process.env.APPSTATE);
         
         login({ appState }, loginOptions, (err, api) => {
             if (err) {
-                console.error("❌ Lỗi đăng nhập, đang thử lại sau 10 giây...", err);
-                return setTimeout(startBot, 10000);
+                console.error("❌ Lỗi đăng nhập! Đang tự động kết nối lại sau 15 giây...", err);
+                return setTimeout(startBot, 15000); // Tránh spam đăng nhập liên tục khi lỗi
             }
 
-            console.log("██████████████████████████████████████████");
-            console.log("► BOT ĐÃ KHỞI CHẠY THÀNH CÔNG VÀ BẢO MẬT AN TOÀN!");
-            console.log("██████████████████████████████████████████");
+            console.log("🛡️ BOT ĐÃ KHỞI CHẠY DƯỚI CHẾ ĐỘ BẢO MẬT CAO!");
 
-            api.setOptions({ listenEvents: true, selfListen: false });
+            // 2. Tối ưu cấu hình API chống spam
+            api.setOptions({ 
+                listenEvents: true, 
+                selfListen: false,
+                autoMarkAsRead: true // Tự động đọc tin nhắn giống người thật
+            });
 
             api.listenMqtt((err, event) => {
                 if (err) {
-                    console.error("❌ Lỗi MQTT:", err);
-                    return startBot(); // Tự động kết nối lại nếu rớt mạng
+                    console.error("❌ Lỗi kết nối MQTT, đang thiết lập lại...");
+                    return startBot();
                 }
                 
-                // Truyền dữ liệu sang handler để xử lý
+                // Chuyển tiếp sang handler xử lý
                 require('./handler.js')(api, event);
             });
         });
     } catch (e) {
-        console.error("❌ Chuỗi APPSTATE trong file .env bị lỗi định dạng!", e);
+        console.error("❌ Không thể đọc cấu hình APPSTATE. Hãy kiểm tra lại biến môi trường!", e);
     }
 }
 
