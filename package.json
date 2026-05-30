@@ -1,14 +1,14 @@
 {
-  "name": "fb-bot-provip-2026",
-  "version": "2.5.0",
+  "name": "bot-fb-pro",
+  "version": "5.0.0",
+  "description": "Bot Messenger siêu cấp siêu bảo mật",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "@dongdev/fca-unofficial": "latest",
-    "axios": "latest",
-    "express": "latest",
-    "fs-extra": "latest"
+    "fca-unofficial": "^1.3.10",
+    "axios": "^1.6.0",
+    "dotenv": "^16.4.5"
   }
 }
